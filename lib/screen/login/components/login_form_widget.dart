@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:kanbo/res/app_context_ext.dart';
+import 'package:kanbo/widgets/space_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class LoginFormWidget extends StatefulWidget {
@@ -20,41 +21,43 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         Align(
           alignment: Alignment.topLeft,
           child: Text('Login to continue!',
-              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold)),
+              style: TextStyle(fontSize: 14.sp, color: context.resources.color.textBoldColor, fontWeight: FontWeight.bold)),
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SpaceWidget(),
         FormBuilderTextField(
-          name: 'username',
+          name: 'email',
+          style: const TextStyle(color: Colors.black,),
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          textInputAction: TextInputAction.next,
           decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.grey[200],
-            hintText: context.resources.string.username,
+            hintText: 'Email',
+            enabledBorder: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderSide: BorderSide(color: context.resources.color.grey3)),
             border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide.none),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
           ),
           validator: FormBuilderValidators.compose([
+            FormBuilderValidators.email(),
             FormBuilderValidators.required(
                 errorText: context.resources.string.tidakBolehKosong),
           ]),
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        SpaceWidget(space: 3.h,),
         FormBuilderTextField(
           name: 'password',
           obscureText: _isHidden,
+          style: const TextStyle(color: Colors.black,),
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.grey[200],
             hintText: context.resources.string.password,
+            enabledBorder: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderSide: BorderSide(color: context.resources.color.grey3)),
             border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide.none),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
             suffixIcon: IconButton(
                 onPressed: () => setState(() {
                       _isHidden = !_isHidden;
@@ -67,9 +70,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 errorText: context.resources.string.tidakBolehKosong),
           ]),
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SpaceWidget(space: 16,),
       ],
     );
   }

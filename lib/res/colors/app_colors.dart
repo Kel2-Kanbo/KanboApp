@@ -15,4 +15,22 @@ class AppColors {
   };
 
   MaterialColor get colorPrimary => MaterialColor(0xff4C35E0, _primary);
+  Color get textBoldColor => HexColor('#1F1F1F');
+  Color get textColor => HexColor('#5C5C5C');
+  Color get grey2 => HexColor('#888686');
+  Color get grey3 => HexColor('#D7D7D7');
+}
+
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll('#', '');
+
+    if (hexColor.length == 6) {
+      hexColor = 'FF$hexColor';
+    }
+
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(String hexColor) : super(_getColorFromHex(hexColor));
 }

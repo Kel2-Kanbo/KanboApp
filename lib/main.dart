@@ -31,7 +31,11 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: context.resources.color.colorPrimary,
-              fontFamily: 'Rubik'
+              scaffoldBackgroundColor: Colors.white,
+              fontFamily: 'Rubik',
+              textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: context.resources.color.textColor,
+              )
             ),
             locale: locale,
             supportedLocales: const [

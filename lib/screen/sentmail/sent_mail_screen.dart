@@ -38,11 +38,11 @@ class SentMailScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 5),
                     child: GestureDetector(
                         onTap: () {},
-                        child: const Text(
+                        child: Text(
                           'Resend email',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff4C35E0)),
+                              color: context.resources.color.textBoldColor,
+                              fontWeight: FontWeight.bold),
                         )),
                   ),
                 ])),
@@ -57,7 +57,7 @@ class SentMailScreen extends StatelessWidget {
                   Text(
                     'Verify your email',
                     style:
-                        TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 20.sp, color: context.resources.color.textBoldColor, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 4.h,
@@ -73,14 +73,15 @@ class SentMailScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                           style:
-                              TextStyle(fontSize: 14.sp, color: Colors.black),
+                              TextStyle(fontSize: 12.sp, color: context.resources.color.textColor),
                           children: [
                             const TextSpan(
                               text: 'Your entered ',
                             ),
                             TextSpan(
                                 text: email,
-                                style: const TextStyle(
+                                style: TextStyle(
+                                    color: context.resources.color.textBoldColor,
                                     fontWeight: FontWeight.bold)),
                             const TextSpan(
                               text:
