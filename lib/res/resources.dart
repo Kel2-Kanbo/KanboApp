@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/res/assets/assets.dart';
+import 'package:kanbo/res/arrays.dart';
+import 'package:kanbo/res/assets.dart';
 import 'package:kanbo/res/strings/default_strings.dart';
 import 'package:kanbo/res/strings/indonesian_strings.dart';
 import 'package:kanbo/res/strings/strings.dart';
 
-import 'colors/app_colors.dart';
+import 'app_colors.dart';
 
 class Resources {
   final BuildContext _context;
@@ -23,6 +24,8 @@ class Resources {
   AppColors get color => AppColors();
 
   Assets get asset => Assets();
+
+  Arrays get list => Arrays();
 
   static Resources of(BuildContext context) => Resources(context);
 }

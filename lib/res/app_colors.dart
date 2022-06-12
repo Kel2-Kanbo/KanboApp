@@ -19,6 +19,8 @@ class AppColors {
   Color get textColor => HexColor('#5C5C5C');
   Color get grey2 => HexColor('#888686');
   Color get grey3 => HexColor('#D7D7D7');
+  Color get white2 => HexColor('#F4F4F4');
+  Color get yellow => HexColor('#FFEC42');
 }
 
 class HexColor extends Color {

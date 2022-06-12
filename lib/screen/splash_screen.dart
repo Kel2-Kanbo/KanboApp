@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanbo/res/app_context_ext.dart';
-import 'package:kanbo/screen/homescreen/home_screen.dart';
+import 'package:kanbo/utils/app_context_ext.dart';
 
 import '../utils/app_route.dart';
-import 'login/login_screen.dart';
+import 'main/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -45,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _initialize() async {
     Timer(const Duration(seconds: 3), () {
-      AppRoute.clearTopTo(const HomeScreen());
+      AppRoute.clearTopTo(const MainScreen());
     });
   }
 }

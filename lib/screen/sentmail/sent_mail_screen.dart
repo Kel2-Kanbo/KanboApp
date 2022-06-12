@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanbo/res/app_context_ext.dart';
+import 'package:kanbo/utils/app_context_ext.dart';
 import 'package:kanbo/widgets/default_button_widget.dart';
 import 'package:open_mail_app/open_mail_app.dart';
 import 'package:sizer/sizer.dart';

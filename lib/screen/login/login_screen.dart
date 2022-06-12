@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanbo/res/app_context_ext.dart';
+import 'package:kanbo/utils/app_context_ext.dart';
 import 'package:kanbo/screen/login/components/login_form_widget.dart';
 import 'package:kanbo/screen/register/register_screen.dart';
 import 'package:kanbo/utils/app_route.dart';
@@ -10,7 +10,7 @@ import 'package:kanbo/widgets/default_button_widget.dart';
 import 'package:kanbo/widgets/space_widget.dart';
 import 'package:sizer/sizer.dart';
 
-import '../homescreen/home_screen.dart';
+import '../main/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
       var username = _formKey.currentState?.value['username'];
       var password = _formKey.currentState?.value['password'];
       _formKey.currentState?.reset();
-      AppRoute.clearAll(const HomeScreen());
+      AppRoute.clearAll(const MainScreen());
     }
   }
 
