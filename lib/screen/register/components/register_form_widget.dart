@@ -74,6 +74,8 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(
                 errorText: context.resources.string.tidakBolehKosong),
+            FormBuilderValidators.minLength(3),
+            FormBuilderValidators.maxLength(20)
           ]),
         ),
         SpaceWidget(
@@ -139,7 +141,8 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(
                 errorText: context.resources.string.tidakBolehKosong),
-            FormBuilderValidators.minLength(8)
+            FormBuilderValidators.minLength(8),
+            FormBuilderValidators.maxLength(40)
           ]),
         ),
         SpaceWidget(
@@ -171,6 +174,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(
                 errorText: context.resources.string.tidakBolehKosong),
+            FormBuilderValidators.maxLength(40),
             FormBuilderValidators.equal(password,
                 errorText: context.resources.string.passwordTidakSama)
           ]),

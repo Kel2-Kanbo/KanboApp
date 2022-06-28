@@ -21,7 +21,7 @@ class DetailRoomScreen extends StatelessWidget {
       const ImageRoomSection(),
       HeaderRoomSection(text: text,),
       const SpecRoomSection(),
-      const ReviewRoomSection()
+      ReviewRoomSection(text: text,)
     ];
     return Scaffold(
       backgroundColor: Colors.white,

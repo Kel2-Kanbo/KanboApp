@@ -25,7 +25,10 @@ class AvailableRoomsScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           itemCount: 10,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          itemBuilder: (context, index) => ItemRoomAdapter(text: '$index')),
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: ItemRoomAdapter(text: '$index'),
+          )),
     );
   }
 }

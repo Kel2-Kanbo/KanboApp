@@ -17,7 +17,9 @@ class DetailOfficeScreen extends StatelessWidget {
       HeaderOfficeSection(
         text: text,
       ),
-      const LocationOfficeSection(),
+      LocationOfficeSection(
+        text: text
+      ),
       RoomOfficeSection(
         text: text,
       ),

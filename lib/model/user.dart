@@ -5,36 +5,52 @@ User userFromJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User data) => json.encode(data.toJson());
 
 class User {
-  int userId;
+  int id;
   String username;
+  String email;
   String password;
-  String roles;
+  List<String> roles;
   String token;
 
   User({
-    this.userId = 0,
+    this.id = 0,
     this.username = '',
+    this.email = '',
     this.password = '',
-    this.roles = '',
+    this.roles = const ['user'],
     this.token = '',
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        userId: json["user_id"],
-        username: json["username"],
-        password: json["password"],
-        roles: json["roles"],
-        token: json["token"],
+        id: json["id"] ?? 0,
+        username: json["username"] ?? '',
+        email: json["email"] ?? '',
+        password: json["password"] ?? '',
+        //roles: json["roles"] ?? [],
+        token: json["token"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
-        "user_id": userId,
+        "id": id,
         "username": username,
+        "email": email,
         "password": password,
         "roles": roles,
-        "token": token,
+        "token": token
       };
 
-      @override
-  String toString() => 'User(userId: $userId, username: $username, token: $token)';
+  Map<String, dynamic> toJsonLogin() => {
+        "username": username,
+        "password": password,
+      };
+
+  Map<String, dynamic> toJsonRegister() => {
+        "username": username,
+        "email": email,
+        "password": password,
+        "role": roles,
+      };
+
+  @override
+  String toString() => 'User(id: $id, username: $username, email: $email)';
 }

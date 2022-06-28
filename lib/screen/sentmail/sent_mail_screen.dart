@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kanbo/screen/login/login_screen.dart';
 import 'package:kanbo/utils/app_context_ext.dart';
 import 'package:kanbo/widgets/default_button_widget.dart';
 import 'package:open_mail_app/open_mail_app.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../utils/app_route.dart';
 
 class SentMailScreen extends StatelessWidget {
   final String? email;
@@ -92,7 +95,10 @@ class SentMailScreen extends StatelessWidget {
                     height: 4.h,
                   ),
                   DefaultButtonWidget('Open email app',
-                      onPressed: () => _openEmailApp(context)),
+                      onPressed: () {
+                        //_openEmailApp(context);
+                        AppRoute.clearAll(const LoginScreen());
+                      }),
                 ],
               ),
             ),

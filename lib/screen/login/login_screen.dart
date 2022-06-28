@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kanbo/model/user.dart';
+import 'package:kanbo/screen/login/login_viewmodel.dart';
 import 'package:kanbo/utils/app_context_ext.dart';
 import 'package:kanbo/screen/login/components/login_form_widget.dart';
 import 'package:kanbo/screen/register/register_screen.dart';
 import 'package:kanbo/utils/app_route.dart';
+import 'package:kanbo/utils/snackbar.dart';
 import 'package:kanbo/widgets/default_button_widget.dart';
 import 'package:kanbo/widgets/space_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../widgets/state_widget.dart';
 import '../main/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,6 +26,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+
+  @override
+  void initState() {
+    context.read<LoginViewModel>().reset();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -91,7 +103,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             )),
                       )),
                 ],
-              )
+              ),
+              Consumer<LoginViewModel>(
+                  builder: (context, viewmodel, child) => StateWidget(
+                        state: viewmodel.state,
+                        onError: (timeStamp) {
+                          var errorMsg = viewmodel.errorMsg;
+                          if (errorMsg != null) {
+                            context.snackbar.error(errorMsg);
+                          }
+                        },
+                        onSucces: (timeStamp) {
+                          _formKey.currentState?.reset();
+                          AppRoute.clearAll(const MainScreen());
+                        },
+                      ))
             ],
           ),
         ),
@@ -102,10 +128,10 @@ class _LoginScreenState extends State<LoginScreen> {
   _onLoginClick() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      var username = _formKey.currentState?.value['username'];
+      var username = _formKey.currentState?.value['email'];
       var password = _formKey.currentState?.value['password'];
-      _formKey.currentState?.reset();
-      AppRoute.clearAll(const MainScreen());
+      User user = User(username: username, password: password);
+      context.read<LoginViewModel>().setLogin(user);
     }
   }
 
