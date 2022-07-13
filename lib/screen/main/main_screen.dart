@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
             NavigationDestination(
                 icon: Icon(CustomIcons.clipboard_alt_outline),
                 selectedIcon: Icon(CustomIcons.clipboard_alt),
-                label: 'Booking'),
+                label: 'My Order'),
             NavigationDestination(
                 icon: Icon(CustomIcons.envelope_outline),
                 selectedIcon: Icon(CustomIcons.envelope),

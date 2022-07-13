@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kanbo/res/custom_icons.dart';
+import 'package:kanbo/screen/booking/booking_screen.dart';
+import 'package:kanbo/screen/chat/direct_message_screen.dart';
 import 'package:kanbo/screen/room/components/header_room_section.dart';
 import 'package:kanbo/screen/room/components/image_room_section.dart';
 import 'package:kanbo/screen/room/components/review_room_section.dart';
 import 'package:kanbo/screen/room/components/spec_room_section.dart';
 import 'package:kanbo/utils/app_context_ext.dart';
+import 'package:kanbo/utils/app_route.dart';
 import 'package:kanbo/widgets/space_widget.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,9 +23,13 @@ class DetailRoomScreen extends StatelessWidget {
     Size size = context.mediaSize;
     List<Widget> listWidget = [
       const ImageRoomSection(),
-      HeaderRoomSection(text: text,),
+      HeaderRoomSection(
+        text: text,
+      ),
       const SpecRoomSection(),
-      ReviewRoomSection(text: text,)
+      ReviewRoomSection(
+        text: text,
+      )
     ];
     return Scaffold(
       backgroundColor: Colors.white,
@@ -45,8 +53,7 @@ class DetailRoomScreen extends StatelessWidget {
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 itemCount: listWidget.length,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8),
                 itemBuilder: (context, index) => listWidget[index],
                 separatorBuilder: (BuildContext context, int index) =>
                     Container(
@@ -64,16 +71,13 @@ class DetailRoomScreen extends StatelessWidget {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, -6))
+                    color: Colors.black12, blurRadius: 2, offset: Offset(0, -2))
               ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  flex: 2,
+                Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -99,24 +103,44 @@ class DetailRoomScreen extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: SizedBox(
-                      width: 130,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              elevation: MaterialStateProperty.all(0),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ))),
-                          onPressed: () =>
-                              context.snackbar.showSnackBar(const SnackBar(
-                                content: Text('Coming Soon'),
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.only(
-                                    bottom: 65, left: 16, right: 16),
-                              )),
-                          child: const Text('Book'))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onTap: () => AppRoute.to(DirectMessageScreen(
+                          title: text,
+                        )),
+                        child: Container(
+                          width: 42,
+                          height: 42,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: context.resources.color.colorPrimary),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8))),
+                          child: Icon(
+                            CustomIcons.envelope_outline,
+                            color: context.resources.color.colorPrimary,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                          width: 100,
+                          height: 42,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(0),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ))),
+                              onPressed: () => AppRoute.to(BookingScreen(
+                                    text: 'Room $text',
+                                  )),
+                              child: const Text('Book')))
+                    ],
+                  ),
                 )
               ],
             ),

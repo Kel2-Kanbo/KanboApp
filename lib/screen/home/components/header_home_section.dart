@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kanbo/utils/app_context_ext.dart';
 import 'package:kanbo/screen/search/search_screen.dart';
 import 'package:kanbo/utils/app_route.dart';
+import 'package:kanbo/widgets/search_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class HeaderHomeSection extends StatelessWidget {
@@ -52,33 +53,8 @@ class HeaderHomeSection extends StatelessWidget {
             bottom: 0,
             left: 16,
             right: 16,
-            child: SizedBox(
-              width: size.width,
-              height: 50,
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: InkWell(
-                  onTap: () => AppRoute.to(const SearchScreen()),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Icon(
-                          Icons.search,
-                          color: context.resources.color.textColor,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 8.0),
-                        child: Text('Search for building'),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+            child: SearchWidget(
+              onClick: () => AppRoute.to(const SearchScreen()),
             ),
           )
         ],

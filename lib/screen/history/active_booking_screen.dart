@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/screen/booking/components/item_booking.dart';
 import 'package:kanbo/widgets/space_widget.dart';
+
+import 'components/item_booking.dart';
 
 class ActiveBookingScreen extends StatelessWidget {
   const ActiveBookingScreen({Key? key}) : super(key: key);

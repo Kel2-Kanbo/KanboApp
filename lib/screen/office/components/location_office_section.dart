@@ -83,7 +83,7 @@ class LocationOfficeSection extends StatelessWidget {
     );
   }
 
-  showNearbyPlace(BuildContext context, String title) => showBottomSheet(
+  showNearbyPlace(BuildContext context, String title) => showModalBottomSheet(
       elevation: 6,
       backgroundColor: Colors.white,
       context: context,
