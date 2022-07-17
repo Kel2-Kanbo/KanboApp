@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/widgets/rating_widget.dart';
-import 'package:kanbo/widgets/simple_location_widget.dart';
-import 'package:kanbo/widgets/space_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
+
+import '../../../model/office.dart';
 
 class HeaderOfficeSection extends StatelessWidget {
-  final String text;
-  const HeaderOfficeSection({Key? key, required this.text}) : super(key: key);
+  final Office office;
+  const HeaderOfficeSection({Key? key, required this.office}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +18,27 @@ class HeaderOfficeSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Office $text',
-                    style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                        color: context.resources.color.textBoldColor),
-                  ),
-                  SimpleLocationWidget(text: 'Index $text')
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      office.title,
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          color: context.resources.color.textBoldColor),
+                    ),
+                    SimpleLocationWidget(
+                      address: office.address,
+                    )
+                  ],
+                ),
               ),
-              const RatingWidget()
+              RatingWidget(
+                rating: office.rating,
+                review: office.review,
+              )
             ],
           ),
           const Divider(
@@ -49,8 +55,7 @@ class HeaderOfficeSection extends StatelessWidget {
               const SpaceWidget(
                 space: 8,
               ),
-              const Text(
-                  'hsdklghjklsdgnjklsdngjklsdfgjkhsfklghsklgjsdfklgjskdfjgsdlg')
+              Text(office.description)
             ],
           )
         ],

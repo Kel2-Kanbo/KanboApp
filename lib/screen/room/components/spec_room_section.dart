@@ -1,34 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../../widgets/space_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class SpecRoomSection extends StatelessWidget {
-  const SpecRoomSection({Key? key}) : super(key: key);
+  final List<String> facilities;
+  const SpecRoomSection({Key? key, required this.facilities}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var listFac = [
-      'Free Wifiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
-      'Listrik kantor',
-      'OB',
-      'Free AER',
-      'DLL'
-    ];
-    var listSpec = [
-      '3 Orang',
-      '48 sqm',
-      'Office Table',
-    ];
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Wrap(
         spacing: 24,
         children: [
-          Expanded(
-              child: Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Specification',
@@ -39,7 +25,7 @@ class SpecRoomSection extends StatelessWidget {
                 space: 8,
               ),
               ListView.builder(
-                itemCount: listSpec.length,
+                itemCount: getListSpec().length,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -65,7 +51,7 @@ class SpecRoomSection extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
-                            listSpec[index],
+                            getListSpec()[index],
                             style: const TextStyle(fontSize: 15),
                           ),
                         ),
@@ -75,10 +61,9 @@ class SpecRoomSection extends StatelessWidget {
                 },
               )
             ],
-          )),
+          ),
           const SpaceWidget(),
-          Expanded(
-              child: Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Facilities',
@@ -89,7 +74,7 @@ class SpecRoomSection extends StatelessWidget {
                 space: 8,
               ),
               MasonryGridView.count(
-                itemCount: listFac.length,
+                itemCount: facilities.length,
                 crossAxisCount: 2,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -106,7 +91,7 @@ class SpecRoomSection extends StatelessWidget {
                       Expanded(
                         flex: 10,
                         child: Text(
-                          listFac[index],
+                          facilities[index],
                           style: const TextStyle(fontSize: 15),
                         ),
                       )
@@ -115,9 +100,15 @@ class SpecRoomSection extends StatelessWidget {
                 },
               ),
             ],
-          ))
+          )
         ],
       ),
     );
   }
+
+  List<String> getListSpec() => [
+        '3 Orang',
+        '48 sqm',
+        'Office Table',
+      ];
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/widgets/space_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class NoDataWidget extends StatelessWidget {
   final String title;

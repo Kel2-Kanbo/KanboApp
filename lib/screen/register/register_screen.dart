@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kanbo/screen/register/register_viewmodel.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
 import 'package:kanbo/screen/register/components/register_form_widget.dart';
 import 'package:kanbo/screen/sentmail/sent_mail_screen.dart';
 import 'package:kanbo/utils/snackbar.dart';
-import 'package:kanbo/widgets/default_button_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 import '../../model/user.dart';
-import '../../utils/app_route.dart';
-import '../../widgets/space_widget.dart';
-import '../../widgets/state_widget.dart';
 import '../login/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {

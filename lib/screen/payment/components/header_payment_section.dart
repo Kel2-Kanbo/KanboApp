@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kanbo/model/order.dart';
 import 'package:kanbo/screen/payment/components/item_order_payment.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
+import 'package:kanbo/export_package.dart';
 
 class HeaderPaymentSection extends StatelessWidget {
-  const HeaderPaymentSection({Key? key}) : super(key: key);
+  final Order order;
+  const HeaderPaymentSection({Key? key, required this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +34,12 @@ class HeaderPaymentSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text('Order ID '),
-                Text('1234567890')
-              ],
+              children: const [Text('Order ID '), Text('1234567890')],
             ),
           ),
-          const ItemOrderPayment()
+          ItemOrderPayment(
+            order: order,
+          )
         ],
       ),
     );

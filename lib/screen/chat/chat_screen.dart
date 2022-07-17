@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kanbo/screen/chat/components/item_chat.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/widgets/search_widget.dart';
-
-import '../../widgets/space_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);

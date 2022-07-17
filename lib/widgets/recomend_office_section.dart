@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/widgets/space_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 import '../screen/home/components/item_office_adapter.dart';
 
@@ -40,14 +39,18 @@ class RecomendOfficeSection extends StatelessWidget {
         ),
         SizedBox(
             width: size.width,
-            height: 225,
+            height: 250,
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context, index) =>
-                  ItemOfficeAdapter(text: '$index'),
+              itemCount: context.resources.list.listOffice.length,
+              itemBuilder: (context, index) {
+                final office = context.resources.list.listOffice[index];
+                return ItemOfficeAdapter(
+                  office: office,
+                );
+              },
             ))
       ],
     );

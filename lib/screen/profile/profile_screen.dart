@@ -4,16 +4,14 @@ import 'package:kanbo/screen/login/login_screen.dart';
 import 'package:kanbo/screen/profile/components/header_profile_section.dart';
 import 'package:kanbo/screen/profile/components/logout_profile_section.dart';
 import 'package:kanbo/screen/profile/components/main_profile_section.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/utils/app_route.dart';
 import 'package:kanbo/utils/snackbar.dart';
-import 'package:kanbo/widgets/space_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 import '../../model/user.dart';
 import '../../res/strings/global_string_src.dart';
-import '../../widgets/state_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

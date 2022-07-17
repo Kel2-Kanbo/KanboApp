@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_package.dart';
 
 class DefaultButtonWidget extends StatelessWidget {
   final String btnTitle;

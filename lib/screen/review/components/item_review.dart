@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../../widgets/space_widget.dart';
-import '../../../widgets/star_rating_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class ItemReview extends StatelessWidget {
   const ItemReview({Key? key}) : super(key: key);
@@ -22,6 +19,7 @@ class ItemReview extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   flex: 2,
@@ -55,13 +53,9 @@ class ItemReview extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Expanded(
-                    child: Positioned(
-                  right: 0,
-                  child: StarRatingWidget(
-                    rating: 1,
-                  ),
-                ))
+                const StarRatingWidget(
+                  rating: 1,
+                )
               ],
             ),
             const SpaceWidget(

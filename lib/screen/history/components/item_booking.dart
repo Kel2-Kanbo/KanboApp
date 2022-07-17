@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:kanbo/model/order.dart';
 import 'package:kanbo/screen/review/review_screen.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../../utils/app_route.dart';
-import '../../../widgets/simple_location_widget.dart';
-import '../../../widgets/space_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class ItemBooking extends StatelessWidget {
-  final String text;
-  const ItemBooking({Key? key, required this.text}) : super(key: key);
+  final Order order;
+  const ItemBooking({Key? key, required this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var content = [
       Text(
-        'Room $text',
+        order.room.title,
         style: TextStyle(
             fontSize: 14.sp,
             color: context.resources.color.textBoldColor,
             fontWeight: FontWeight.bold),
       ),
       Text(
-        'Office $text',
+        context.resources.list.listOffice[order.room.officeId].title,
         style: TextStyle(
           fontSize: 12.sp,
           color: context.resources.color.textBoldColor,
         ),
       ),
-      SimpleLocationWidget(text: text),
+      SimpleLocationWidget(
+        address: context.resources.list.listOffice[order.room.officeId].address,
+      ),
       Text(
-        '$text Days',
+        '${order.duration} Days',
         style: TextStyle(
           fontSize: 12.sp,
           color: context.resources.color.colorPrimary,
@@ -49,7 +48,7 @@ class ItemBooking extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
-              'Booked date : $text',
+              'Booked date : ${order.getDateRange()}',
               style: TextStyle(
                   fontSize: 10.sp,
                   color: context.resources.color.textBoldColor),
@@ -70,7 +69,7 @@ class ItemBooking extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8)),
                         child: Image.network(
-                          'https://images.unsplash.com/photo-1551128997-c2b66772f982',
+                          order.room.thumbnails[0],
                           fit: BoxFit.fill,
                         ))),
                 Expanded(
@@ -93,27 +92,27 @@ class ItemBooking extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  flex: 3,
+                    flex: 3,
                     child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Total Payment :',
-                      style: TextStyle(
-                          color: context.resources.color.textColor,
-                          fontSize: 10.sp),
-                    ),
-                    Text(
-                      '${text}0${text}0000',
-                      style: TextStyle(
-                          color: context.resources.color.textBoldColor,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                )),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Total Payment :',
+                          style: TextStyle(
+                              color: context.resources.color.textColor,
+                              fontSize: 10.sp),
+                        ),
+                        Text(
+                          order.totalPrice.toString(),
+                          style: TextStyle(
+                              color: context.resources.color.textBoldColor,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    )),
                 Expanded(
-                  flex: 2,
+                    flex: 2,
                     child: ElevatedButton(
                         style: ButtonStyle(
                             elevation: MaterialStateProperty.all(0),
@@ -121,7 +120,9 @@ class ItemBooking extends StatelessWidget {
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ))),
-                        onPressed: () => AppRoute.to(ReviewScreen(text: text)),
+                        onPressed: () => AppRoute.to(ReviewScreen(
+                              room: order.room,
+                            )),
                         child: const Text('Give Review')))
               ],
             ),

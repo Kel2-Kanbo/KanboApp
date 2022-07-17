@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-
-import '../../../widgets/space_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class ShowDateWidget extends StatelessWidget {
   final String title;

@@ -1,19 +1,21 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:kanbo/export_package.dart';
+import 'package:kanbo/model/payment.dart';
+import 'package:kanbo/model/room.dart';
 import 'package:kanbo/screen/confirm/confirm_screen.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/utils/app_route.dart';
 
+import '../../model/order.dart';
+import '../../model/review_response.dart';
+import '../../model/specification.dart';
 import 'components/contact_form.dart';
 import 'components/date_form.dart';
 import 'components/room_details_section.dart';
 
 class BookingScreen extends StatefulWidget {
-  final String text;
-  const BookingScreen({Key? key, required this.text}) : super(key: key);
+  final Room room;
+  const BookingScreen({Key? key, required this.room}) : super(key: key);
 
   @override
   State<BookingScreen> createState() => _BookingScreenState();
@@ -21,6 +23,9 @@ class BookingScreen extends StatefulWidget {
 
 class _BookingScreenState extends State<BookingScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+  final Order order = Order(
+      room: Room(specification: Specification(), review: ReviewResponse()),
+      payment: Payment());
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +76,28 @@ class _BookingScreenState extends State<BookingScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ))),
                   onPressed: () {
-                    AppRoute.to(const ConfirmScreen());
-                    if (_formKey.currentState!.validate()) {
+                    order.room = widget.room;
+                    if (_formKey.currentState!.validate() &&
+                        order.duration > 0) {
                       _formKey.currentState!.save();
-                      var name = _formKey.currentState?.value['name'];
-                      log(name);
+                      var name = _formKey.currentState?.value['name'] as String;
+                      var email =
+                          _formKey.currentState?.value['email'] as String;
+                      var phone =
+                          _formKey.currentState?.value['phone'] as String;
+                      order.name = name;
+                      order.email = email;
+                      order.phoneNumber = phone;
+                      order.totalPrice =
+                          order.room.pricePerDay * order.duration;
+                      AppRoute.to(ConfirmScreen(
+                        order: order,
+                      ));
+                    } else {
+                      context.snackbar.showSnackBar(const SnackBar(
+                        content: Text('Mohon periksa kembali'),
+                        backgroundColor: Colors.redAccent,
+                      ));
                     }
                   },
                   child: const Text('Confirm')),
@@ -88,9 +110,15 @@ class _BookingScreenState extends State<BookingScreen> {
 
   List<Widget> getListWidgetBooking() => [
         RoomDetailsSection(
-          text: widget.text,
+          room: widget.room,
         ),
-        const DateForm(),
+        DateForm(
+          onChangeDate: (DateTimeRange dateTimeRange) {
+            order.duration = dateTimeRange.duration.inDays + 1;
+            order.startDate = dateTimeRange.start;
+            order.endDate = dateTimeRange.end;
+          },
+        ),
         ContactForm(
           formKey: _formKey,
         )

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/widgets/no_data_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
 
 class HistoryBookingScreen extends StatelessWidget {
   const HistoryBookingScreen({Key? key}) : super(key: key);

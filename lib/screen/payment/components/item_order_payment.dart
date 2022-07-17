@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../../widgets/space_widget.dart';
+import 'package:kanbo/model/order.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class ItemOrderPayment extends StatelessWidget {
-  final String text;
-  const ItemOrderPayment({Key? key, this.text = '-'}) : super(key: key);
+  final Order order;
+  const ItemOrderPayment({Key? key, required this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,42 +22,42 @@ class ItemOrderPayment extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 8),
-                  child: Flexible(
-                      child: Container(
-                          width: 40,
-                          height: 40,
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Image.network(
-                            'https://images.unsplash.com/photo-1551128997-c2b66772f982',
-                            fit: BoxFit.fill,
-                          ))),
+                  child: Container(
+                      width: 40,
+                      height: 40,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Image.network(
+                        order.room.thumbnails[0],
+                        fit: BoxFit.fill,
+                      )),
                 ),
                 Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Room $text',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                              color: context.resources.color.textBoldColor,
-                            )),
-                        const SpaceWidget(
-                          space: 4,
-                        ),
-                        Text(
-                          'Building $text',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: context.resources.color.textBoldColor,
-                          ),
-                        ),
-                      ],
-                    ))
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(order.room.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: context.resources.color.textBoldColor,
+                        )),
+                    const SpaceWidget(
+                      space: 4,
+                    ),
+                    Text(
+                      context
+                          .resources.list.listOffice[order.room.officeId].title,
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: context.resources.color.textBoldColor,
+                      ),
+                    ),
+                  ],
+                ))
               ],
             ),
           ),
@@ -71,7 +70,7 @@ class ItemOrderPayment extends StatelessWidget {
                   color: context.resources.color.grey2,
                 ),
               ),
-              const Text('Buat range tanggal  •  0 days')
+              Expanded(child: Text('${order.getDateRange()}  •  ${order.duration} days'))
             ],
           )
         ],

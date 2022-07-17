@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kanbo/screen/office/components/item_room_adapter.dart';
 
+import '../../model/room.dart';
+
 class AvailableRoomsScreen extends StatelessWidget {
-  final String text;
-  const AvailableRoomsScreen({Key? key, required this.text}) : super(key: key);
+  final String officeName;
+  final List<Room> listRoom;
+  const AvailableRoomsScreen(
+      {Key? key, required this.listRoom, required this.officeName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class AvailableRoomsScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Office $text',
+          officeName,
           style: const TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -23,12 +28,17 @@ class AvailableRoomsScreen extends StatelessWidget {
       ),
       body: ListView.builder(
           physics: const BouncingScrollPhysics(),
-          itemCount: 10,
+          itemCount: listRoom.length,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            child: ItemRoomAdapter(text: '$index'),
-          )),
+          itemBuilder: (context, index) {
+            final Room room = listRoom[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: ItemRoomAdapter(
+                room: room,
+              ),
+            );
+          }),
     );
   }
 }

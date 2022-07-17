@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
+import 'package:kanbo/export_package.dart';
 
 class BookingTextFieldWidget extends StatelessWidget {
   final String name;
   final String labelText;
   final TextInputType? textInputType;
   final List<String? Function(String?)>? validators;
+  final TextEditingController? controller;
   const BookingTextFieldWidget(
       {Key? key,
       required this.name,
       this.textInputType,
       this.validators,
-      required this.labelText})
+      required this.labelText,
+      this.controller})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
         name: name,
+        controller: controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         keyboardType: textInputType,
         textInputAction: TextInputAction.next,

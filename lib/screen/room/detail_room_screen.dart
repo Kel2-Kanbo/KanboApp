@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kanbo/model/room.dart';
 import 'package:kanbo/res/custom_icons.dart';
 import 'package:kanbo/screen/booking/booking_screen.dart';
 import 'package:kanbo/screen/chat/direct_message_screen.dart';
@@ -7,36 +8,24 @@ import 'package:kanbo/screen/room/components/header_room_section.dart';
 import 'package:kanbo/screen/room/components/image_room_section.dart';
 import 'package:kanbo/screen/room/components/review_room_section.dart';
 import 'package:kanbo/screen/room/components/spec_room_section.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/utils/app_route.dart';
-import 'package:kanbo/widgets/space_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 import '../../utils/currency_format.dart';
 
 class DetailRoomScreen extends StatelessWidget {
-  final String text;
-  const DetailRoomScreen({Key? key, required this.text}) : super(key: key);
+  final Room room;
+  const DetailRoomScreen({Key? key, required this.room}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = context.mediaSize;
-    List<Widget> listWidget = [
-      const ImageRoomSection(),
-      HeaderRoomSection(
-        text: text,
-      ),
-      const SpecRoomSection(),
-      ReviewRoomSection(
-        text: text,
-      )
-    ];
+    final Size size = context.mediaSize;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Room $text',
+          room.title,
           style: const TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -52,9 +41,9 @@ class DetailRoomScreen extends StatelessWidget {
             child: SizedBox(
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
-                itemCount: listWidget.length,
+                itemCount: _getListWidget().length,
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                itemBuilder: (context, index) => listWidget[index],
+                itemBuilder: (context, index) => _getListWidget()[index],
                 separatorBuilder: (BuildContext context, int index) =>
                     Container(
                   height: 4,
@@ -91,7 +80,7 @@ class DetailRoomScreen extends StatelessWidget {
                       ),
                       Text.rich(TextSpan(children: [
                         TextSpan(
-                            text: CurrencyFormat.convertToIdr(300000),
+                            text: CurrencyFormat.convertToIdr(room.pricePerDay),
                             style: TextStyle(
                                 color: context.resources.color.colorPrimary,
                                 fontSize: 12.sp,
@@ -108,7 +97,8 @@ class DetailRoomScreen extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () => AppRoute.to(DirectMessageScreen(
-                          title: text,
+                          title: room.title,
+                          room: room,
                         )),
                         child: Container(
                           width: 42,
@@ -136,7 +126,7 @@ class DetailRoomScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(8),
                                   ))),
                               onPressed: () => AppRoute.to(BookingScreen(
-                                    text: 'Room $text',
+                                    room: room,
                                   )),
                               child: const Text('Book')))
                     ],
@@ -149,4 +139,20 @@ class DetailRoomScreen extends StatelessWidget {
       ),
     );
   }
+
+  List<Widget> _getListWidget() => [
+        ImageRoomSection(
+          listImages: room.thumbnails,
+        ),
+        HeaderRoomSection(
+          room: room,
+        ),
+        SpecRoomSection(
+          facilities: room.facilities,
+        ),
+        ReviewRoomSection(
+          reviewResponse: room.review,
+          title: room.title,
+        )
+      ];
 }

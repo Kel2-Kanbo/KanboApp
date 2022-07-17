@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/widgets/space_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
 
 import '../data/remote/viewstate.dart';
 

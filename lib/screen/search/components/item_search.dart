@@ -1,31 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:kanbo/model/office.dart';
 import 'package:kanbo/screen/office/detail_office_screen.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/utils/app_route.dart';
-import 'package:kanbo/widgets/rating_widget.dart';
-import 'package:kanbo/widgets/simple_location_widget.dart';
-import 'package:kanbo/widgets/space_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class ItemSearch extends StatelessWidget {
-  final String text;
-  const ItemSearch({Key? key, required this.text}) : super(key: key);
+  final Office office;
+  const ItemSearch({Key? key, required this.office}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var content = [
-      Text(
-        'Office $text',
-        style: TextStyle(
-            fontSize: 14.sp,
-            color: context.resources.color.textBoldColor,
-            fontWeight: FontWeight.bold),
-      ),
-      RatingWidget(),
-      SimpleLocationWidget(text: text)
-    ];
     return InkWell(
-      onTap: () => AppRoute.to(DetailOfficeScreen(text: text)),
+      onTap: () => AppRoute.to(DetailOfficeScreen(
+        office: office,
+      )),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Row(
@@ -38,7 +26,7 @@ class ItemSearch extends StatelessWidget {
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(8)),
                     child: Image.network(
-                      'https://images.unsplash.com/photo-1551128997-c2b66772f982',
+                      office.image,
                       fit: BoxFit.fill,
                     ))),
             Expanded(
@@ -47,15 +35,32 @@ class ItemSearch extends StatelessWidget {
               child: ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => content[index],
+                  itemBuilder: (context, index) => _getContent(context)[index],
                   separatorBuilder: (context, index) => const SpaceWidget(
                         space: 4,
                       ),
-                  itemCount: content.length),
+                  itemCount: _getContent(context).length),
             ))
           ],
         ),
       ),
     );
   }
+
+  List<Widget> _getContent(BuildContext context) => [
+        Text(
+          office.title,
+          style: TextStyle(
+              fontSize: 14.sp,
+              color: context.resources.color.textBoldColor,
+              fontWeight: FontWeight.bold),
+        ),
+        RatingWidget(
+          rating: office.rating,
+          review: office.review,
+        ),
+        SimpleLocationWidget(
+          address: office.address,
+        )
+      ];
 }

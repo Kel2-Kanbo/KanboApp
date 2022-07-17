@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kanbo/model/office.dart';
 import 'package:kanbo/screen/search/components/item_search.dart';
-import 'package:kanbo/utils/app_route.dart';
+import 'package:kanbo/export_package.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -54,9 +55,10 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           body: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: 10,
+              itemCount: context.resources.list.listOffice.length,
               itemBuilder: (context, index) {
-                return ItemSearch(text: index.toString());
+                final Office office = context.resources.list.listOffice[index];
+                return ItemSearch(office: office);
               }),
         ),
       ),

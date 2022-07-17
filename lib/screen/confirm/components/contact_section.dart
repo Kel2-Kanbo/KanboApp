@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/screen/booking/components/contact_form.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/widgets/space_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/model/order.dart';
+import 'package:kanbo/screen/confirm/components/bottom_edit_contact.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
-class ContactSection extends StatelessWidget {
-  const ContactSection({Key? key}) : super(key: key);
+class ContactSection extends StatefulWidget {
+  final Order order;
+  final Function(Order) onChangeContact;
+  const ContactSection({
+    Key? key,
+    required this.order,
+    required this.onChangeContact,
+  }) : super(key: key);
+
+  @override
+  State<ContactSection> createState() => _ContactSectionState();
+}
+
+class _ContactSectionState extends State<ContactSection> {
+  late Order _order;
+  @override
+  void initState() {
+    _order = widget.order;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +53,8 @@ class ContactSection extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Expanded(
-                        child: Text('NAMA USER'),
+                      Expanded(
+                        child: Text(_order.name),
                       ),
                       GestureDetector(
                         onTap: () => _showEditContact(context),
@@ -48,11 +66,11 @@ class ContactSection extends StatelessWidget {
                   const SpaceWidget(
                     space: 5,
                   ),
-                  const Text('EMAIL USER'),
+                  Text(_order.email),
                   const SpaceWidget(
                     space: 5,
                   ),
-                  const Text('PHONE USER'),
+                  Text(_order.phoneNumber),
                 ],
               ),
             ),
@@ -63,25 +81,18 @@ class ContactSection extends StatelessWidget {
   }
 
   _showEditContact(BuildContext context) {
-    final Size size = context.mediaSize;
     showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(24), topRight: Radius.circular(24)),
         ),
-        builder: (context) => Column(
-              children: [
-                const ContactForm(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SizedBox(
-                      width: size.width,
-                      height: 36,
-                      child: ElevatedButton(
-                          onPressed: () {}, child: const Text('Save'))),
-                )
-              ],
+        builder: (context) => BottomEditContact(
+              order: _order,
+              onChangeContact: (Order order) => setState(() {
+                _order = order;
+                widget.onChangeContact(order);
+              }),
             ));
   }
 }

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:kanbo/export_package.dart';
 import 'package:kanbo/screen/login/login_viewmodel.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
 import 'package:kanbo/screen/splash_screen.dart';
 import 'package:kanbo/viewmodel/language_viewmodel.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
 
 import 'screen/register/register_viewmodel.dart';
-import 'utils/app_route.dart';
 
 void main() {
   runApp(const MyApp());

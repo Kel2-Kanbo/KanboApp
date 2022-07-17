@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
 import 'package:kanbo/screen/search/search_screen.dart';
-import 'package:kanbo/utils/app_route.dart';
-import 'package:kanbo/widgets/search_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class HeaderHomeSection extends StatelessWidget {
   const HeaderHomeSection({Key? key}) : super(key: key);

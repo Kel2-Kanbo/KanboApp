@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:kanbo/screen/review/all_review_screen.dart';
 import 'package:kanbo/screen/review/components/item_review.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/widgets/rating_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
-import '../../../utils/app_route.dart';
-import '../../../widgets/space_widget.dart';
+import '../../../model/review_response.dart';
 
 class ReviewRoomSection extends StatelessWidget {
-  final String text;
-  const ReviewRoomSection({Key? key, required this.text}) : super(key: key);
+  final ReviewResponse reviewResponse;
+  final String title;
+  const ReviewRoomSection(
+      {Key? key, required this.reviewResponse, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class ReviewRoomSection extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 flex: 2,
@@ -33,16 +35,19 @@ class ReviewRoomSection extends StatelessWidget {
                     const SpaceWidget(
                       space: 8,
                     ),
-                    const RatingWidget()
+                    RatingWidget(
+                      rating: reviewResponse.rating,
+                      review: reviewResponse.review,
+                    )
                   ],
                 ),
               ),
-              Expanded(
-                child: Positioned(
-                    right: 0,
-                    child: TextButton(
-                        onPressed: () => AppRoute.to(AllReviewScreen(text: text)), child: const Text('View all'))),
-              )
+              TextButton(
+                  onPressed: () => AppRoute.to(AllReviewScreen(
+                        title: title,
+                        listReview: reviewResponse.listReview,
+                      )),
+                  child: const Text('View all'))
             ],
           ),
           const SpaceWidget(),

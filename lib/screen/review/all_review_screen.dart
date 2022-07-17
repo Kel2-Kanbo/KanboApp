@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kanbo/model/review.dart';
 import 'package:kanbo/screen/review/components/item_review.dart';
-
-import '../../utils/app_route.dart';
+import 'package:kanbo/export_package.dart';
 
 class AllReviewScreen extends StatelessWidget {
-  final String text;
-  const AllReviewScreen({Key? key, required this.text}) : super(key: key);
+  final String title;
+  final List<Review> listReview;
+  const AllReviewScreen(
+      {Key? key, required this.title, required this.listReview})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class AllReviewScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
         title: Text(
-          'Review Room $text',
+          'Review $title',
           style: const TextStyle(color: Colors.black),
         ),
         leading: GestureDetector(
@@ -27,15 +30,15 @@ class AllReviewScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: 10,
-        itemBuilder: (context, index) {
-        return const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8),
-          child: ItemReview(),
-        );
-      }),
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: ItemReview(),
+            );
+          }),
     );
   }
 }

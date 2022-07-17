@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_package.dart';
 
 class RatingWidget extends StatelessWidget {
   final double? rating;
-  final String? review;
-  const RatingWidget({Key? key, this.rating = 0, this.review = '- review'})
+  final int? review;
+  const RatingWidget({Key? key, this.rating = 0, this.review = 0})
       : super(key: key);
 
   @override
@@ -22,7 +21,7 @@ class RatingWidget extends StatelessWidget {
         Text.rich(TextSpan(children: [
           TextSpan(text: ' $rating', style: TextStyle(fontSize: 12.sp)),
           TextSpan(
-              text: ' ($review)',
+              text: ' (${review == 0 ? '- review' : '$review reviews'})',
               style: TextStyle(
                   color: context.resources.color.grey2, fontSize: 10.sp))
         ])),

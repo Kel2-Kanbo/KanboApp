@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:kanbo/model/room.dart';
 import 'package:kanbo/screen/review/components/item_add_review_section.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_package.dart';
 
 class ReviewScreen extends StatefulWidget {
-  final String text;
-  const ReviewScreen({Key? key, required this.text}) : super(key: key);
+  final Room room;
+  const ReviewScreen({Key? key, required this.room}) : super(key: key);
 
   @override
   State<ReviewScreen> createState() => _ReviewScreenState();
@@ -35,7 +35,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16),
-            child: ItemAddReviewSection(text: widget.text),
+            child: ItemAddReviewSection(
+              room: widget.room,
+            ),
           ),
           Divider(
             thickness: 5,
@@ -59,8 +61,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       ),
                       empty: Icon(Icons.star,
                           color: context.resources.color.grey3)),
-                  onRatingUpdate: (double rating) =>
-                      setState(() {
+                  onRatingUpdate: (double rating) => setState(() {
                         _reviewController.text = 'Your rating $rating';
                       })),
             ),

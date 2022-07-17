@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
+import 'package:kanbo/model/office.dart';
 import 'package:kanbo/screen/home/components/item_office_adapter.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../../widgets/space_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class MainHomeSection extends StatelessWidget {
-  const MainHomeSection({Key? key}) : super(key: key);
+  final List<Office> listOffice;
+  const MainHomeSection({Key? key, required this.listOffice}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +38,24 @@ class MainHomeSection extends StatelessWidget {
         SizedBox(
           child: OrientationBuilder(
             builder: (BuildContext context, Orientation orientation) {
-              var isLandscape = orientation == Orientation.landscape || size.width > 500;
+              var isLandscape =
+                  orientation == Orientation.landscape || size.width > 500;
               return GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  itemCount: 10,
+                  itemCount: listOffice.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 0.7,
-                      crossAxisCount:
-                          !isLandscape ? 2 : 3,
+                      crossAxisCount: !isLandscape ? 2 : 3,
                       mainAxisSpacing: 10),
-                  itemBuilder: (context, index) => ItemOfficeAdapter(
-                        text: '$index',
-                      ));
+                  itemBuilder: (context, index) {
+                    final Office office = listOffice[index];
+                    return ItemOfficeAdapter(
+                      office: office,
+                    );
+                  });
             },
           ),
         )

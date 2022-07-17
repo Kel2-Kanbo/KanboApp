@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
 import 'package:kanbo/screen/home/components/header_home_section.dart';
 import 'package:kanbo/screen/home/components/main_home_section.dart';
-import 'package:kanbo/widgets/recomend_office_section.dart';
-import 'package:kanbo/widgets/space_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -30,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           statusBarIconBrightness: Brightness.light),
       child: Scaffold(
         body: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             const HeaderHomeSection(),
             const RecomendOfficeSection(),
@@ -38,7 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
               thickness: 5,
               color: context.resources.color.white2,
             ),
-            const MainHomeSection(),
+            MainHomeSection(
+              listOffice: context.resources.list.listOffice,
+            ),
             const SpaceWidget()
           ],
         ),

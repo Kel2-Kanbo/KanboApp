@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_package.dart';
 
 class DateForm extends StatefulWidget {
-  const DateForm({Key? key}) : super(key: key);
+  final Function(DateTimeRange)? onChangeDate;
+  const DateForm({Key? key, this.onChangeDate}) : super(key: key);
 
   @override
   State<DateForm> createState() => _DateFormState();
@@ -50,7 +50,7 @@ class _DateFormState extends State<DateForm> {
                         thickness: 2,
                         color: context.resources.color.grey2,
                       ),
-                      Positioned(right: 0, child: Text(getDurationDate()))
+                      Text(getDurationDate())
                     ],
                   ),
                 ),
@@ -75,6 +75,9 @@ class _DateFormState extends State<DateForm> {
     if (result != null) {
       setState(() {
         _selectedDateRange = result;
+        if (widget.onChangeDate != null) {
+          widget.onChangeDate!(result);
+        }
       });
     }
   }
@@ -94,7 +97,7 @@ class _DateFormState extends State<DateForm> {
     }
     return result;
   }
-  
+
   String getDurationDate() {
     var result = '- days';
     if (_selectedDateRange != null) {

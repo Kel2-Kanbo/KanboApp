@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kanbo/model/payment.dart';
 import 'package:kanbo/screen/confirm/components/item_payment.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_package.dart';
 
 class PaymentSection extends StatefulWidget {
-  const PaymentSection({Key? key}) : super(key: key);
+  final Function(Payment) onPaymentChange;
+  const PaymentSection({Key? key, required this.onPaymentChange})
+      : super(key: key);
 
   @override
   State<PaymentSection> createState() => _PaymentSectionState();
@@ -34,13 +36,22 @@ class _PaymentSectionState extends State<PaymentSection> {
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 scrollDirection: Axis.horizontal,
-                itemCount: 10,
+                itemCount: context.resources.list.listPayment.length,
                 clipBehavior: Clip.none,
-                itemBuilder: (context, index) => ItemPayment(
-                  index: index,
-                  selectedId: selectedId,
-                  onSelected: (id) => setState(() => selectedId = id),
-                ),
+                itemBuilder: (context, index) {
+                  final Payment payment =
+                      context.resources.list.listPayment[index];
+                  return ItemPayment(
+                    index: index,
+                    selectedId: selectedId,
+                    onSelected: (id) => setState(() {
+                      selectedId = id;
+                      widget.onPaymentChange(
+                          context.resources.list.listPayment[id]);
+                    }),
+                    payment: payment,
+                  );
+                },
               ))
         ],
       ),

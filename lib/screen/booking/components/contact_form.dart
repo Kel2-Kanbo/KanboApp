@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 import 'package:kanbo/screen/booking/components/booking_textfield_widget.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/widgets/space_widget.dart';
-import 'package:sizer/sizer.dart';
 
 class ContactForm extends StatelessWidget {
-  final Key? formKey;
-  const ContactForm({Key? key, this.formKey}) : super(key: key);
+  final String name;
+  final String email;
+  final String phoneNumber;
+  final Key formKey;
+  final TextEditingController? nameController;
+  final TextEditingController? emailController;
+  final TextEditingController? phoneController;
+  const ContactForm({
+    Key? key,
+    required this.formKey,
+    this.name = '',
+    this.email = '',
+    this.phoneNumber = '',
+    this.nameController,
+    this.emailController,
+    this.phoneController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +43,11 @@ class ContactForm extends StatelessWidget {
             const SpaceWidget(
               space: 16,
             ),
-            const BookingTextFieldWidget(
+            BookingTextFieldWidget(
               name: 'name',
               labelText: 'Name',
               textInputType: TextInputType.name,
+              controller: nameController,
             ),
             const SpaceWidget(
               space: 16,
@@ -40,6 +55,7 @@ class ContactForm extends StatelessWidget {
             BookingTextFieldWidget(
               name: 'email',
               labelText: 'Email',
+              controller: emailController,
               textInputType: TextInputType.emailAddress,
               validators: [FormBuilderValidators.email()],
             ),
@@ -49,6 +65,7 @@ class ContactForm extends StatelessWidget {
             BookingTextFieldWidget(
               name: 'phone',
               labelText: 'Phone Number',
+              controller: phoneController,
               textInputType: TextInputType.phone,
               validators: [
                 FormBuilderValidators.numeric(),

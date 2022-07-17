@@ -1,39 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:kanbo/model/payment.dart';
 
 class TutorialPaymentSection extends StatelessWidget {
-  const TutorialPaymentSection({Key? key}) : super(key: key);
+  final Payment payment;
+  const TutorialPaymentSection({Key? key, required this.payment}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Column(
-        children: const [
+        children: [
           ExpansionTile(
-            title: Text(
+            title: const Text(
               'Payment instruction ATM',
             ),
-            childrenPadding: EdgeInsets.symmetric(vertical: 8),
+            childrenPadding: const EdgeInsets.symmetric(vertical: 8),
             expandedAlignment: Alignment.topLeft,
-            children: [Text('Lorem ipsum.')],
+            children: [Text(payment.tutorialAtm ?? '-')],
           ),
-          Divider(),
+          const Divider(),
           ExpansionTile(
-            title: Text(
+            title: const Text(
               'Payment instruction mBanking',
             ),
-            childrenPadding: EdgeInsets.symmetric(vertical: 8),
+            childrenPadding: const EdgeInsets.symmetric(vertical: 8),
             expandedAlignment: Alignment.topLeft,
-            children: [Text('Lorem ipsum.')],
+            children: [Text(payment.tutorialMBanking ?? '-')],
           ),
-          Divider(),
+          const Divider(),
           ExpansionTile(
-            title: Text(
+            title: const Text(
               'Payment instruction iBanking',
             ),
-            childrenPadding: EdgeInsets.symmetric(vertical: 8),
+            childrenPadding: const EdgeInsets.symmetric(vertical: 8),
             expandedAlignment: Alignment.topLeft,
-            children: [Text('Lorem ipsum.')],
+            children: [Text(payment.tutorialiBanking ?? '-')],
           ),
         ],
       ),

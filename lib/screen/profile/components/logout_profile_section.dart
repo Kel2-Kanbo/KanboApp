@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/utils/app_route.dart';
-import 'package:sizer/sizer.dart';
+import 'package:kanbo/export_package.dart';
 
 class LogoutProfileSection extends StatelessWidget {
   const LogoutProfileSection({Key? key}) : super(key: key);

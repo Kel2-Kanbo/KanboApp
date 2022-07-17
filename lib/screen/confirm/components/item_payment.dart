@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
+import 'package:kanbo/model/payment.dart';
+import 'package:kanbo/export_package.dart';
 
 class ItemPayment extends StatelessWidget {
+  final Payment payment;
   final int index;
   final int selectedId;
   final Function(int)? onSelected;
@@ -9,7 +11,8 @@ class ItemPayment extends StatelessWidget {
       {Key? key,
       required this.index,
       required this.selectedId,
-      this.onSelected})
+      this.onSelected,
+      required this.payment})
       : super(key: key);
 
   @override
@@ -32,7 +35,7 @@ class ItemPayment extends StatelessWidget {
                   : Colors.white,
               borderRadius: const BorderRadius.all(Radius.circular(4)),
               border: Border.all(color: context.resources.color.grey3)),
-          child: const FlutterLogo(),
+          child: Image.network(payment.image),
         ),
       ),
     );

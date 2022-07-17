@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../../widgets/space_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class MainProfileSection extends StatelessWidget {
   const MainProfileSection({Key? key}) : super(key: key);

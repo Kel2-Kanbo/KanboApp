@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/widgets/space_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:flutter/services.dart';
+import 'package:kanbo/model/payment.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
+import 'package:kanbo/utils/currency_format.dart';
 
 class TotalPaymentSection extends StatelessWidget {
-  const TotalPaymentSection({Key? key}) : super(key: key);
+  final int totalPrice;
+  final Payment payment;
+  const TotalPaymentSection(
+      {Key? key, required this.totalPrice, required this.payment})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,9 @@ class TotalPaymentSection extends StatelessWidget {
               color: context.resources.color.textBoldColor,
             ),
           ),
-          const SpaceWidget(space: 8,),
+          const SpaceWidget(
+            space: 8,
+          ),
           Container(
             width: size.width,
             height: 50,
@@ -31,8 +39,18 @@ class TotalPaymentSection extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             child: Row(
               children: [
-                const Expanded(child: Text('Buat Harga')),
-                GestureDetector(onTap: () {}, child: const Icon(Icons.copy, size: 16,),)
+                Expanded(child: Text(CurrencyFormat.convertToIdr(totalPrice))),
+                GestureDetector(
+                  onTap: () {
+                    Clipboard.setData(ClipboardData(text: '$totalPrice'));
+                    context.snackbar.showSnackBar(
+                        const SnackBar(content: Text('Price copied')));
+                  },
+                  child: const Icon(
+                    Icons.copy,
+                    size: 16,
+                  ),
+                )
               ],
             ),
           ),
@@ -44,7 +62,9 @@ class TotalPaymentSection extends StatelessWidget {
               color: context.resources.color.textBoldColor,
             ),
           ),
-          const SpaceWidget(space: 8,),
+          const SpaceWidget(
+            space: 8,
+          ),
           Container(
             width: size.width,
             height: 50,
@@ -54,8 +74,19 @@ class TotalPaymentSection extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             child: Row(
               children: [
-                const Expanded(child: Text('Buat NOREK')),
-                GestureDetector(onTap: () {}, child: const Icon(Icons.copy, size: 16,),)
+                Expanded(
+                    child: Text('${payment.title} VA No. ${payment.numberVa}')),
+                GestureDetector(
+                  onTap: () {
+                    Clipboard.setData(ClipboardData(text: payment.numberVa));
+                    context.snackbar.showSnackBar(
+                        const SnackBar(content: Text('No.VA copied')));
+                  },
+                  child: const Icon(
+                    Icons.copy,
+                    size: 16,
+                  ),
+                )
               ],
             ),
           ),

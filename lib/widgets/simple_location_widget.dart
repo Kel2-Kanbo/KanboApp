@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kanbo/res/custom_icons.dart';
-import 'package:kanbo/utils/app_context_ext.dart';
-import 'package:kanbo/widgets/space_widget.dart';
+import 'package:kanbo/export_custom_widgets.dart';
+import 'package:kanbo/export_package.dart';
 
 class SimpleLocationWidget extends StatelessWidget {
-  final String text;
-  const SimpleLocationWidget({Key? key, required this.text}) : super(key: key);
+  final String address;
+  const SimpleLocationWidget({Key? key, required this.address}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class SimpleLocationWidget extends StatelessWidget {
           color: context.resources.color.grey2,
         ),
         const SpaceWidget(space: 5, isVerticalSpace: false,),
-        Text(text),
+        Expanded(child: Text(address, style: TextStyle(fontSize: 10.sp),)),
       ],
     );
   }
